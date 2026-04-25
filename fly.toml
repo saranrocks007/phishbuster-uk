@@ -1,0 +1,93 @@
+# =====================================================================
+# PhishBuster UK — Fly.io deployment config
+# Region: lhr (London Heathrow) — keeps M365 traffic in-region
+# Two processes: dashboard (HTTP) + scanner (worker)
+# =====================================================================
+app = "phishbuster-uk"
+primary_region = "lhr"
+kill_signal = "SIGINT"
+kill_timeout = "30s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  APP_ENV = "production"
+  PB_TIMEZONE = "Europe/London"
+  TZ = "Europe/London"
+  DASHBOARD_HOST = "0.0.0.0"
+  DASHBOARD_PORT = "8080"
+  PB_DATA_DIR = "/app/data"
+  DATABASE_URL = "sqlite:////app/data/phishbuster.db"
+  MODEL_PATH = "/app/data/classifier.joblib"
+  YARA_RULES_DIR = "/app/config/yara"
+  PB_CACHE_PATH = "/app/data/ti_cache.sqlite"
+  # Detector defaults — override per-app via `fly secrets set`
+  ENABLE_DOMAIN_AGE_CHECK = "true"
+  ENABLE_BEC_DETECTOR = "true"
+  ENABLE_YARA_SCANNING = "true"
+  ENABLE_THREAT_INTEL = "false"   # set true via secrets when you add API keys
+  ENABLE_URL_SANDBOX = "false"    # opt-in; visits URLs
+
+# ---------------------------------------------------------- processes
+[processes]
+  dashboard = "python -m src.dashboard.app"
+  scanner   = "python -m src.main --daemon"
+
+# ---------------------------------------------------------- HTTP service (dashboard only)
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["dashboard"]
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 200
+    soft_limit = 100
+
+  [[services.tcp_checks]]
+    interval = "30s"
+    timeout  = "5s"
+    grace_period = "20s"
+
+  [[services.http_checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "30s"
+    method = "get"
+    path = "/api/health"
+    protocol = "http"
+
+# ---------------------------------------------------------- VM sizing
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+  processes = ["dashboard"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"          # scanner needs more RAM for classifier + YARA + sandbox
+  processes = ["scanner"]
+
+# ---------------------------------------------------------- persistent storage
+[mounts]
+  source = "pb_data"
+  destination = "/app/data"
+  processes = ["dashboard", "scanner"]
+
+# ---------------------------------------------------------- deploy strategy
+[deploy]
+  strategy = "rolling"
+  release_command = "python scripts/setup_db.py"

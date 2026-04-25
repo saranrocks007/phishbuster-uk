@@ -1,0 +1,68 @@
+# ============================================================
+# PhishBuster UK — docker-compose
+# Services:
+#   scanner   — polls M365 mailbox, classifies, responds
+#   dashboard — SOC console at :8080
+#   postgres  — (optional) production-grade persistence
+# ============================================================
+services:
+
+  scanner:
+    build: .
+    image: phishbuster-uk:latest
+    container_name: pb-scanner
+    command: ["python", "-m", "src.main", "--daemon"]
+    env_file: .env
+    environment:
+      # Override DATABASE_URL here for postgres if enabled
+      - APP_ENV=production
+    volumes:
+      - pb-data:/app/data
+      - ./config:/app/config:ro
+    restart: unless-stopped
+    depends_on:
+      - dashboard
+    networks: [pb-net]
+
+  dashboard:
+    build: .
+    image: phishbuster-uk:latest
+    container_name: pb-dashboard
+    command: ["python", "-m", "src.dashboard.app"]
+    env_file: .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - pb-data:/app/data
+      - ./config:/app/config:ro
+    restart: unless-stopped
+    networks: [pb-net]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys;sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/api/health',timeout=3).status==200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Enable with: docker compose --profile postgres up -d
+  postgres:
+    image: postgres:16-alpine
+    container_name: pb-postgres
+    profiles: ["postgres"]
+    environment:
+      POSTGRES_DB: phishbuster
+      POSTGRES_USER: phishbuster
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    volumes:
+      - pb-pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks: [pb-net]
+
+volumes:
+  pb-data:
+  pb-pgdata:
+
+networks:
+  pb-net:
+    driver: bridge

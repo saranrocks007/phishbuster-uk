@@ -1,0 +1,26 @@
+# PhishBuster UK
+.env
+*.db
+*.db-shm
+*.db-wal
+data/logs/*.log
+data/iocs/*.json
+data/iocs/*.csv
+data/iocs/*.stix.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store

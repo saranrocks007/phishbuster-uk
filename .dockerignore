@@ -1,0 +1,49 @@
+# =====================================================================
+# .dockerignore — keep image layers small & secrets out
+# =====================================================================
+.git
+.gitignore
+.github/
+.idea/
+.vscode/
+.venv/
+venv/
+__pycache__/
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local data and build artefacts (mounted via volume in production)
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/logs/*.log
+data/iocs/*
+data/corpus/
+data/ti_cache.sqlite*
+
+# Local secrets — NEVER copy these into the image
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Fly machine cache
+.fly/
+fly.toml.bak
+
+# Tests / docs not required at runtime
+tests/__pycache__/
+docs/_build/
