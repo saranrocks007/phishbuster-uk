@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <title>Incident #{{ incident.id }} · PhishBuster UK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/console.css" />
+</head>
+<body class="detail-body">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="gridlines" aria-hidden="true"></div>
+
+  <div class="detail-wrap">
+    <a class="back" href="/">← Console</a>
+
+    <header class="detail-head">
+      <div class="eyebrow">INCIDENT · {{ incident.message_id[:32] }}{% if incident.message_id|length > 32 %}…{% endif %}</div>
+      <h1>{{ incident.subject or "(no subject)" }}</h1>
+      <div class="detail-chips">
+        <span class="chip chip-{{ incident.verdict }}">{{ incident.verdict|upper }}</span>
+        <span class="chip chip-sev-{{ incident.severity }}">{{ incident.severity|upper }}</span>
+        {% if incident.brand %}<span class="chip chip-brand">{{ incident.brand }}</span>{% endif %}
+        {% if incident.quarantined %}<span class="chip chip-action">QUARANTINED</span>{% endif %}
+        {% if incident.ticket_id %}<span class="chip chip-action">TICKET · {{ incident.ticket_id }}</span>{% endif %}
+        {% if incident.is_fp %}<span class="chip chip-fp">FALSE POSITIVE</span>{% endif %}
+      </div>
+    </header>
+
+    <section class="detail-grid">
+      <article class="panel">
+        <h2>Summary</h2>
+        <p class="summary-text">{{ incident.summary }}</p>
+        <dl class="kv">
+          <dt>From</dt><dd class="mono">{{ incident.from_address or "—" }}</dd>
+          <dt>Received</dt><dd class="mono">{{ incident.received_at }}</dd>
+          <dt>Detected</dt><dd class="mono">{{ incident.detected_at or "—" }}</dd>
+          <dt>Responded</dt><dd class="mono">{{ incident.responded_at or "—" }}</dd>
+          <dt>Score</dt><dd class="mono">{{ "%.3f"|format(incident.score) }}</dd>
+          <dt>SLA window</dt><dd class="mono">{{ incident.sla_minutes }} min</dd>
+          <dt>MITRE</dt><dd class="mono">{{ incident.mitre|join(", ") or "—" }}</dd>
+        </dl>
+      </article>
+
+      <article class="panel">
+        <h2>Findings ({{ findings|length }})</h2>
+        <table class="findings">
+          <thead><tr><th>Detector</th><th>Rule</th><th>Weight</th><th>Detail</th></tr></thead>
+          <tbody>
+            {% for f in findings %}
+            <tr>
+              <td class="mono">{{ f.detector }}</td>
+              <td class="mono">{{ f.rule }}</td>
+              <td class="mono">{{ "%.2f"|format(f.weight) }}</td>
+              <td>{{ f.detail }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </article>
+
+      <article class="panel">
+        <h2>Indicators ({{ iocs|length }})</h2>
+        <table class="findings">
+          <thead><tr><th>Type</th><th>Value</th><th>Source</th><th>Tags</th></tr></thead>
+          <tbody>
+            {% for i in iocs %}
+            <tr>
+              <td class="mono">{{ i.type }}</td>
+              <td class="mono truncate">{{ i.value }}</td>
+              <td class="mono">{{ i.source }}</td>
+              <td class="mono">{{ i.tags }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </article>
+    </section>
+  </div>
+</body>
+</html>

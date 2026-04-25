@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishBuster UK · SOC Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/console.css" />
+</head>
+<body>
+  <!-- ambient grain + grid overlay -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="gridlines" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div class="mast-left">
+      <div class="sigil" aria-hidden="true">
+        <!-- stylised crown-over-chevron -->
+        <svg viewBox="0 0 64 64" width="48" height="48">
+          <path d="M8 28 L16 16 L24 26 L32 14 L40 26 L48 16 L56 28 L52 48 L12 48 Z"
+                fill="none" stroke="currentColor" stroke-width="1.4" />
+          <circle cx="16" cy="16" r="2.2" fill="currentColor" />
+          <circle cx="32" cy="14" r="2.2" fill="currentColor" />
+          <circle cx="48" cy="16" r="2.2" fill="currentColor" />
+          <path d="M12 52 L52 52" stroke="currentColor" stroke-width="1.4" />
+          <path d="M14 56 L50 56" stroke="currentColor" stroke-width="0.8" opacity="0.6" />
+        </svg>
+      </div>
+      <div class="mast-title">
+        <div class="eyebrow">CLASSIFIED · OFFICIAL — SOC OPERATIONS</div>
+        <h1>PhishBuster <em>UK</em></h1>
+        <div class="sub">AI-augmented phishing defence for Microsoft 365 · Aligned to NCSC guidance &amp; Cyber Essentials Plus</div>
+      </div>
+    </div>
+    <div class="mast-right">
+      <div class="status-row">
+        <span class="live"><span class="dot"></span> OPERATIONAL</span>
+        <span class="clock" id="clock">—</span>
+      </div>
+      <div class="window-switch" role="tablist" aria-label="Time window">
+        <button class="win active" data-hours="24">24h</button>
+        <button class="win" data-hours="72">3d</button>
+        <button class="win" data-hours="168">7d</button>
+        <button class="win" data-hours="720">30d</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================== KPI STRIP ============================== -->
+  <section class="kpi-strip" aria-label="Key performance indicators">
+    <article class="kpi kpi-primary">
+      <div class="kpi-label">Confirmed phishing</div>
+      <div class="kpi-value" id="kpi-phishing">—</div>
+      <div class="kpi-meta"><span id="kpi-total">—</span> total scanned</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Mean time to detect</div>
+      <div class="kpi-value mono" id="kpi-mttd">—</div>
+      <div class="kpi-meta">received → detected</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">Mean time to respond</div>
+      <div class="kpi-value mono" id="kpi-mttr">—</div>
+      <div class="kpi-meta">detected → contained</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">SLA adherence</div>
+      <div class="kpi-value" id="kpi-sla">—</div>
+      <div class="kpi-meta">within severity window</div>
+    </article>
+    <article class="kpi">
+      <div class="kpi-label">False positive rate</div>
+      <div class="kpi-value" id="kpi-fp">—</div>
+      <div class="kpi-meta">analyst-flagged</div>
+    </article>
+    <article class="kpi kpi-warn">
+      <div class="kpi-label">Dwell (open phishing)</div>
+      <div class="kpi-value mono" id="kpi-dwell">—</div>
+      <div class="kpi-meta">oldest unresponded</div>
+    </article>
+  </section>
+
+  <!-- ============================== MAIN GRID ============================== -->
+  <main class="console-grid">
+
+    <!-- Incident stream -->
+    <section class="panel panel-stream">
+      <header class="panel-head">
+        <h2>Incident stream</h2>
+        <div class="panel-tools">
+          <select id="filter-verdict" class="filter">
+            <option value="">All verdicts</option>
+            <option value="phishing">Phishing</option>
+            <option value="suspicious">Suspicious</option>
+            <option value="benign">Benign</option>
+          </select>
+          <select id="filter-severity" class="filter">
+            <option value="">All severities</option>
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+          <button class="refresh" id="refresh-stream" title="Refresh">⟳</button>
+        </div>
+      </header>
+      <div class="stream" id="incident-stream">
+        <div class="stream-empty">Awaiting incidents…</div>
+      </div>
+    </section>
+
+    <!-- Verdict donut -->
+    <section class="panel panel-donut">
+      <header class="panel-head"><h2>Verdict distribution</h2></header>
+      <div class="donut-wrap">
+        <canvas id="chart-verdicts"></canvas>
+        <div class="donut-center">
+          <span id="donut-total">0</span>
+          <small>processed</small>
+        </div>
+      </div>
+      <ul class="legend" id="verdict-legend"></ul>
+    </section>
+
+    <!-- UK Brand heatmap -->
+    <section class="panel panel-brands">
+      <header class="panel-head">
+        <h2>UK brand impersonation</h2>
+        <span class="window-note">7-day window</span>
+      </header>
+      <div id="brand-chart" class="brand-chart"><div class="stream-empty">No impersonation detected.</div></div>
+    </section>
+
+    <!-- Detector yield -->
+    <section class="panel panel-detectors">
+      <header class="panel-head">
+        <h2>Detector yield</h2>
+        <span class="window-note">weight contribution</span>
+      </header>
+      <div id="detector-chart" class="bar-chart"></div>
+    </section>
+
+    <!-- Hourly timeline -->
+    <section class="panel panel-timeline">
+      <header class="panel-head">
+        <h2>Volume &amp; verdict timeline</h2>
+        <span class="window-note">hourly</span>
+      </header>
+      <canvas id="chart-timeline"></canvas>
+    </section>
+
+    <!-- MITRE coverage -->
+    <section class="panel panel-mitre">
+      <header class="panel-head"><h2>ATT&amp;CK coverage</h2><span class="window-note">30 days</span></header>
+      <div id="mitre-chart" class="mitre-grid"></div>
+    </section>
+
+    <!-- IOC velocity -->
+    <section class="panel panel-ioc">
+      <header class="panel-head"><h2>IOC velocity</h2><span class="window-note">by type</span></header>
+      <div id="ioc-chart" class="bar-chart bar-chart-compact"></div>
+    </section>
+
+  </main>
+
+  <footer class="footplate">
+    <div>
+      <strong>PhishBuster UK</strong> v1.0 ·
+      Aligned with <a href="https://www.ncsc.gov.uk/collection/phishing-scams" target="_blank" rel="noopener">NCSC phishing guidance</a> ·
+      Automatic SERS forwarding to <span class="mono">report@phishing.gov.uk</span>
+    </div>
+    <div class="mono" id="gen-time">—</div>
+  </footer>
+
+  <!-- Incident drill-down modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-labelledby="modal-title">
+      <header class="modal-head">
+        <h2 id="modal-title">Incident detail</h2>
+        <button class="close" data-close aria-label="Close">×</button>
+      </header>
+      <div class="modal-body" id="modal-body">Loading…</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="/static/console.js"></script>
+</body>
+</html>
