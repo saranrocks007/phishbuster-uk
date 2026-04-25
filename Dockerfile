@@ -57,4 +57,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
         sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/api/health', timeout=3).status == 200 else 1)"
 
 # Default to dashboard; compose overrides with daemon for the scanner service
-CMD ["python", "-m", "src.dashboard.app"]
+CMD ["sh", "-c", "python scripts/setup_db.py && python scripts/seed_demo_data.py --count 80 --days 14 || true; python -m src.dashboard.app"]
