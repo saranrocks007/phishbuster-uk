@@ -1,0 +1,35 @@
+name: Deploy to Fly.io
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "**/*.md"
+      - "LICENSE"
+  workflow_dispatch: {}
+
+concurrency:
+  group: fly-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    if: github.repository == 'saranrocks007/phishbuster-uk'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy
+        run: flyctl deploy --remote-only --strategy rolling
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Seed demo data on first deploy
+        run: |
+          flyctl ssh console --command "python scripts/seed_demo_data.py --count 80 --days 14" || true
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
