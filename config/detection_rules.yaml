@@ -1,0 +1,133 @@
+# ==================================================================
+# PhishBuster UK — Detection rule weights and thresholds
+# ==================================================================
+
+scoring:
+  # Base score is 0.0 (benign) .. 1.0 (malicious). Contributions are
+  # summed and capped. Threshold for phishing verdict in .env.
+  weights:
+    spf_fail:             0.20
+    spf_softfail:         0.10
+    dkim_fail:            0.20
+    dkim_missing:         0.08
+    dmarc_fail:           0.20
+    dmarc_missing:        0.08
+    arc_broken:           0.10
+    reply_to_mismatch:    0.15
+    display_name_spoof:   0.25  # From-name impersonates brand, From-domain unrelated
+    typosquat_domain:     0.25
+    homoglyph_domain:     0.30
+    newly_registered:     0.15  # domain age <= 30 days
+    high_risk_tld:        0.10
+    url_shortener:        0.10
+    ip_url:               0.15
+    mismatched_url_text:  0.20  # visible text vs href mismatch
+    suspicious_phrase:    0.05  # per phrase, max 0.20 total
+    urgency_language:     0.10
+    credential_form:      0.25  # HTML form or credential input request
+    attachment_html:      0.15  # .html attachment
+    attachment_iso_lnk:   0.25  # .iso / .lnk / .img / .vbs
+    macro_office_doc:     0.20
+    uk_lure_match:        0.25
+    qr_code_to_suspicious: 0.30
+    ai_generated_likely:  0.10
+    aitm_indicator:       0.20
+
+    # --- Threat intel signals ---
+    ti_url_malicious:     0.40   # VirusTotal / URLhaus / PhishTank match
+    ti_url_suspicious:    0.20   # 1-2 vendors flag URL as suspicious
+    ti_domain_malicious:  0.35
+    ti_ip_abuse:          0.25   # AbuseIPDB confidence ≥ 75
+    ti_filehash_known_malicious: 0.45
+
+    # --- Sandbox / live URL signals ---
+    sandbox_credential_form:   0.30  # live URL serves login form
+    sandbox_brand_asset_steal: 0.35  # page loads UK-brand logos from external host
+    sandbox_redirect_chain:    0.15  # 3+ redirects before final page
+
+    # --- Attachment / YARA signals ---
+    yara_match_suspicious:     0.25
+    yara_match_malicious:      0.45
+    macro_office_with_autoexec: 0.30
+    pdf_with_javascript:       0.20
+
+    # --- BEC / sender anomaly ---
+    sender_first_seen:         0.15  # never sent to org before
+    sender_unusual_hour:       0.08  # 3σ outside sender's normal hours
+    sender_new_recipient:      0.10  # sender→recipient pair never seen
+    sender_writing_style_shift: 0.20 # cosine sim drop vs sender's prior corpus
+    bec_finance_keywords:      0.20  # wire/invoice/urgent payment to new sender
+
+# --- Severity mapping ---
+# Final score -> incident severity (affects SLA)
+severity_bands:
+  - { max: 0.35, level: "informational",    sla_minutes: 1440 }  # 24h
+  - { max: 0.55, level: "low",              sla_minutes: 480 }   # 8h
+  - { max: 0.75, level: "medium",           sla_minutes: 240 }   # 4h
+  - { max: 0.90, level: "high",             sla_minutes: 60 }    # 1h
+  - { max: 1.01, level: "critical",         sla_minutes: 15 }    # 15m
+
+# --- Indicator lists ---
+high_risk_tlds:
+  - .zip
+  - .mov
+  - .xyz
+  - .top
+  - .click
+  - .work
+  - .rest
+  - .country
+  - .support
+  - .buzz
+  - .cam
+  - .quest
+  - .ml
+  - .ga
+  - .cf
+  - .tk
+  - .gq
+  - .icu
+
+url_shorteners:
+  - bit.ly
+  - tinyurl.com
+  - t.co
+  - goo.gl
+  - ow.ly
+  - buff.ly
+  - is.gd
+  - cutt.ly
+  - rebrand.ly
+  - shorturl.at
+  - rb.gy
+  - urlz.fr
+
+urgency_terms:
+  - urgent
+  - immediate action
+  - act now
+  - within 24 hours
+  - within 48 hours
+  - last warning
+  - final notice
+  - account suspended
+  - account locked
+  - legal action
+  - court
+  - bailiff
+  - avoid penalty
+  - avoid charge
+
+credential_request_terms:
+  - verify your password
+  - confirm your password
+  - re-enter your password
+  - update your login
+  - confirm your identity
+  - verify your identity
+  - enter your pin
+  - enter your sort code
+  - enter your account number
+  - confirm your card details
+  - enter your card number
+  - re-verify your account

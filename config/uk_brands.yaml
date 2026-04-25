@@ -1,0 +1,504 @@
+# ==================================================================
+# UK Brand Impersonation Reference Database
+# Curated list of most-impersonated UK brands in phishing campaigns.
+# Each brand has:
+#   - legitimate_domains: canonical sending domains
+#   - display_aliases: common From-name spoofs
+#   - keywords: body/subject tokens signalling impersonation attempt
+#   - typical_lures: known lure themes
+#   - severity: base severity modifier (1.0 - 1.5)
+# ==================================================================
+
+brands:
+
+  # ---------- UK Government ----------
+  hmrc:
+    name: "HM Revenue & Customs"
+    category: government
+    severity: 1.4
+    legitimate_domains:
+      - gov.uk
+      - hmrc.gov.uk
+      - taxservice.gov.uk
+      - taxrefund.hmrc.gov.uk
+    display_aliases:
+      - "HMRC"
+      - "HM Revenue & Customs"
+      - "HM Revenue and Customs"
+      - "Her Majesty's Revenue and Customs"
+      - "His Majesty's Revenue and Customs"
+      - "Gov.UK"
+      - "GOV.UK"
+    keywords:
+      - "tax refund"
+      - "tax rebate"
+      - "self assessment"
+      - "self-assessment"
+      - "outstanding tax"
+      - "tax calculation"
+      - "p800"
+      - "utr number"
+      - "unique taxpayer reference"
+      - "national insurance number suspended"
+      - "hmrc owes you"
+      - "claim your refund"
+      - "tax overpayment"
+    typical_lures:
+      - "Tax refund notification"
+      - "Outstanding tax bill with legal threat"
+      - "Self-assessment deadline warning"
+      - "VAT reclaim"
+
+  dvla:
+    name: "Driver and Vehicle Licensing Agency"
+    category: government
+    severity: 1.3
+    legitimate_domains:
+      - gov.uk
+      - dvla.gov.uk
+    display_aliases:
+      - "DVLA"
+      - "GOV.UK - DVLA"
+    keywords:
+      - "vehicle tax"
+      - "driving licence"
+      - "driving license"
+      - "car tax refund"
+      - "v5c"
+      - "mot reminder"
+      - "failed payment"
+      - "last reminder"
+    typical_lures:
+      - "Vehicle tax refund"
+      - "Failed direct debit"
+      - "Driving licence renewal"
+
+  nhs:
+    name: "National Health Service"
+    category: government
+    severity: 1.3
+    legitimate_domains:
+      - nhs.uk
+      - nhs.net
+      - england.nhs.uk
+      - scot.nhs.uk
+      - wales.nhs.uk
+    display_aliases:
+      - "NHS"
+      - "NHS England"
+      - "NHS Digital"
+      - "NHSBSA"
+    keywords:
+      - "covid pass"
+      - "digital pass"
+      - "vaccine record"
+      - "nhs login"
+      - "prescription"
+      - "dental appointment"
+      - "health check"
+      - "nhs app"
+    typical_lures:
+      - "COVID-19 digital pass update"
+      - "Prescription delivery failed"
+      - "NHS login verification"
+
+  tv_licensing:
+    name: "TV Licensing"
+    category: government
+    severity: 1.2
+    legitimate_domains:
+      - tvlicensing.co.uk
+    display_aliases:
+      - "TV Licensing"
+      - "TV Licence"
+    keywords:
+      - "tv licence"
+      - "tv license"
+      - "direct debit failed"
+      - "licence renewal"
+      - "final notice"
+    typical_lures:
+      - "Payment failed, licence cancelled"
+      - "Final notice before enforcement"
+
+  dwp:
+    name: "Department for Work and Pensions"
+    category: government
+    severity: 1.3
+    legitimate_domains:
+      - gov.uk
+      - dwp.gov.uk
+    display_aliases:
+      - "DWP"
+      - "Universal Credit"
+    keywords:
+      - "cost of living"
+      - "universal credit"
+      - "winter fuel"
+      - "benefit payment"
+      - "pip"
+    typical_lures:
+      - "Cost of living payment"
+      - "Winter fuel allowance"
+
+  companies_house:
+    name: "Companies House"
+    category: government
+    severity: 1.2
+    legitimate_domains:
+      - gov.uk
+      - companieshouse.gov.uk
+    display_aliases:
+      - "Companies House"
+    keywords:
+      - "confirmation statement"
+      - "annual return"
+      - "strike off"
+      - "company dissolved"
+    typical_lures:
+      - "Confirmation statement overdue"
+      - "Strike-off threat"
+
+  # ---------- Postal / Delivery ----------
+  royal_mail:
+    name: "Royal Mail"
+    category: delivery
+    severity: 1.4
+    legitimate_domains:
+      - royalmail.com
+      - royalmail.co.uk
+    display_aliases:
+      - "Royal Mail"
+      - "RoyalMail"
+      - "Royal Mail Group"
+      - "Royal Mail Delivery"
+    keywords:
+      - "redelivery"
+      - "parcel awaiting"
+      - "shipping fee"
+      - "customs charge"
+      - "track your parcel"
+      - "missed delivery"
+      - "hold your parcel"
+      - "schedule delivery"
+      - "£1.99"
+      - "£2.99"
+      - "small fee"
+      - "outstanding fee"
+    typical_lures:
+      - "Parcel redelivery fee"
+      - "Missed delivery card"
+      - "Customs clearance charge"
+      - "QR-code based redelivery scam"
+
+  evri:
+    name: "Evri (Hermes)"
+    category: delivery
+    severity: 1.2
+    legitimate_domains:
+      - evri.com
+      - evri.co.uk
+    display_aliases:
+      - "Evri"
+      - "Hermes"
+    keywords:
+      - "parcel"
+      - "delivery"
+      - "reschedule"
+      - "evri tracking"
+
+  dpd:
+    name: "DPD"
+    category: delivery
+    severity: 1.1
+    legitimate_domains:
+      - dpd.co.uk
+      - dpdgroup.com
+    display_aliases:
+      - "DPD"
+      - "DPD UK"
+    keywords:
+      - "parcel"
+      - "driver"
+      - "dpd tracking"
+
+  # ---------- UK Banks ----------
+  natwest:
+    name: "NatWest"
+    category: banking
+    severity: 1.5
+    legitimate_domains:
+      - natwest.com
+      - natwest.co.uk
+    display_aliases:
+      - "NatWest"
+      - "NatWest Bank"
+      - "NatWest Alerts"
+    keywords:
+      - "new payee"
+      - "payment blocked"
+      - "unusual activity"
+      - "suspicious login"
+      - "verify your account"
+      - "temporary hold"
+      - "one-time passcode"
+    typical_lures:
+      - "New payee added - confirm"
+      - "Suspicious login"
+      - "Account suspension warning"
+
+  barclays:
+    name: "Barclays"
+    category: banking
+    severity: 1.5
+    legitimate_domains:
+      - barclays.co.uk
+      - barclays.com
+    display_aliases:
+      - "Barclays"
+      - "Barclays Bank"
+    keywords:
+      - "new payee"
+      - "barclays alert"
+      - "account locked"
+      - "pinsentry"
+
+  lloyds:
+    name: "Lloyds Bank"
+    category: banking
+    severity: 1.5
+    legitimate_domains:
+      - lloydsbank.com
+      - lloydsbank.co.uk
+    display_aliases:
+      - "Lloyds"
+      - "Lloyds Bank"
+    keywords:
+      - "lloyds alert"
+      - "account locked"
+      - "suspicious transaction"
+
+  hsbc:
+    name: "HSBC"
+    category: banking
+    severity: 1.5
+    legitimate_domains:
+      - hsbc.com
+      - hsbc.co.uk
+    display_aliases:
+      - "HSBC"
+      - "HSBC UK"
+    keywords:
+      - "hsbc alert"
+      - "account suspended"
+      - "device verification"
+
+  halifax:
+    name: "Halifax"
+    category: banking
+    severity: 1.4
+    legitimate_domains:
+      - halifax.co.uk
+    display_aliases:
+      - "Halifax"
+      - "Halifax Bank"
+    keywords:
+      - "halifax alert"
+      - "unusual activity"
+
+  santander_uk:
+    name: "Santander UK"
+    category: banking
+    severity: 1.4
+    legitimate_domains:
+      - santander.co.uk
+    display_aliases:
+      - "Santander"
+      - "Santander UK"
+    keywords:
+      - "santander alert"
+      - "new payee"
+
+  monzo:
+    name: "Monzo"
+    category: banking
+    severity: 1.3
+    legitimate_domains:
+      - monzo.com
+    display_aliases:
+      - "Monzo"
+    keywords:
+      - "monzo"
+      - "card frozen"
+      - "unusual spending"
+
+  starling:
+    name: "Starling Bank"
+    category: banking
+    severity: 1.3
+    legitimate_domains:
+      - starlingbank.com
+    display_aliases:
+      - "Starling"
+      - "Starling Bank"
+    keywords:
+      - "starling"
+      - "verify your identity"
+
+  revolut:
+    name: "Revolut"
+    category: banking
+    severity: 1.3
+    legitimate_domains:
+      - revolut.com
+    display_aliases:
+      - "Revolut"
+    keywords:
+      - "revolut"
+      - "card blocked"
+
+  # ---------- Energy / Utilities ----------
+  british_gas:
+    name: "British Gas"
+    category: utilities
+    severity: 1.2
+    legitimate_domains:
+      - britishgas.co.uk
+    display_aliases:
+      - "British Gas"
+    keywords:
+      - "energy refund"
+      - "ofgem refund"
+      - "energy bill"
+      - "credit on your account"
+      - "cost of living"
+
+  eon:
+    name: "E.ON Next"
+    category: utilities
+    severity: 1.2
+    legitimate_domains:
+      - eonnext.com
+      - eon.co.uk
+    display_aliases:
+      - "E.ON"
+      - "E.ON Next"
+    keywords:
+      - "energy bill"
+      - "eon refund"
+      - "direct debit"
+
+  octopus_energy:
+    name: "Octopus Energy"
+    category: utilities
+    severity: 1.2
+    legitimate_domains:
+      - octopus.energy
+    display_aliases:
+      - "Octopus Energy"
+      - "Octopus"
+    keywords:
+      - "octopus energy"
+      - "refund"
+
+  # ---------- Retail / Payment ----------
+  amazon_uk:
+    name: "Amazon UK"
+    category: retail
+    severity: 1.2
+    legitimate_domains:
+      - amazon.co.uk
+      - amazon.com
+    display_aliases:
+      - "Amazon"
+      - "Amazon.co.uk"
+    keywords:
+      - "order cancelled"
+      - "prime membership"
+      - "suspicious order"
+
+  tesco:
+    name: "Tesco"
+    category: retail
+    severity: 1.1
+    legitimate_domains:
+      - tesco.com
+      - tescobank.com
+    display_aliases:
+      - "Tesco"
+      - "Tesco Clubcard"
+    keywords:
+      - "clubcard"
+      - "tesco reward"
+      - "clubcard vouchers"
+
+  paypal_uk:
+    name: "PayPal"
+    category: payment
+    severity: 1.3
+    legitimate_domains:
+      - paypal.co.uk
+      - paypal.com
+    display_aliases:
+      - "PayPal"
+      - "service@paypal.co.uk"
+    keywords:
+      - "unauthorised payment"
+      - "paypal alert"
+      - "receipt for your payment"
+
+  # ---------- Education / Other ----------
+  student_loans_company:
+    name: "Student Loans Company"
+    category: government
+    severity: 1.2
+    legitimate_domains:
+      - slc.co.uk
+      - studentloanrepayment.co.uk
+    display_aliases:
+      - "Student Loans Company"
+      - "SLC"
+    keywords:
+      - "student finance"
+      - "repayment"
+      - "overpayment refund"
+
+  # ---------- Local Government ----------
+  council_tax:
+    name: "Local Council / Council Tax"
+    category: government
+    severity: 1.2
+    legitimate_domains:
+      - gov.uk
+    display_aliases:
+      - "Council Tax"
+      - "Local Council"
+      - "Your Council"
+    keywords:
+      - "council tax refund"
+      - "council tax overpayment"
+      - "band reduction"
+
+# ==================================================================
+# Free-form UK-specific indicators (language cues that rarely appear
+# in legitimate UK business mail but are common in phishing lures)
+# ==================================================================
+suspicious_phrases:
+  - "dear customer"
+  - "dear user"
+  - "dear account holder"
+  - "your account will be suspended"
+  - "24 hours to verify"
+  - "48 hours to verify"
+  - "click the link below to verify"
+  - "failure to do so"
+  - "your account has been limited"
+  - "kindly"
+  - "we have temporarily suspended"
+  - "due to unusual activity"
+  - "you have been selected"
+  - "congratulations you have won"
+  - "please update your details"
+  - "we were unable to deliver"
+  - "a small shipping fee"
+  - "your parcel is waiting"
