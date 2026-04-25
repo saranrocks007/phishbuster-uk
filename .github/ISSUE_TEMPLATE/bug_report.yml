@@ -1,0 +1,48 @@
+name: Bug report
+description: Something is broken — verdict, dashboard, deployment, etc.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the unexpected behaviour. Include the message subject (or a description) if relevant — never paste raw email content with PII.
+      placeholder: "Scanning a Royal Mail .eml fixture returned BENIGN, but the same message scored PHISHING in v1.2."
+    validations: { required: true }
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. `python -m src.main --scan-file tests/samples/royal_mail_redelivery.eml`
+        2. Observe verdict
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: PhishBuster UK version / commit SHA
+      placeholder: "v1.0 / commit abc1234"
+    validations: { required: true }
+  - type: dropdown
+    id: deploy
+    attributes:
+      label: Deployment mode
+      options: [Native Python, Docker Compose, Fly.io, Render, Hugging Face Spaces, Other]
+    validations: { required: true }
+  - type: textarea
+    id: env
+    attributes:
+      label: Relevant environment
+      description: Detector flags enabled (`ENABLE_*` env vars). Do not paste secrets / API keys.
+      render: shell
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Last ~50 lines from `data/logs/phishbuster.log` (redact PII).
+      render: shell
