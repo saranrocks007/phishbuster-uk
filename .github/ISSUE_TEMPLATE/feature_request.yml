@@ -1,0 +1,31 @@
+name: Feature request
+description: New detector, integration, or capability
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem you're trying to solve
+      placeholder: "Our SOC also receives a lot of WhatsApp-themed phishing — would like a detector for those lure patterns."
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations: { required: true }
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New detector module
+        - New threat-intel vendor integration
+        - Dashboard / KPI feature
+        - Response automation (ticketing / SOAR / SIEM)
+        - Documentation
+        - Other
+    validations: { required: true }
