@@ -1,0 +1,4 @@
+type,value,detector,tags
+url,https://hmrc-tax-refund.xyz/claim?id=7821,url_analyser,
+domain,hmrc-tax-refund.xyz,url_analyser,
+email,noreply@hmrc-tax-refund.xyz,ingestion,

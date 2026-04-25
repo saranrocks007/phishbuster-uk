@@ -1,0 +1,6 @@
+type,value,detector,tags
+url,https://octopus.energy/dashboard,url_analyser,
+domain,octopus.energy,url_analyser,
+url,https://octopus.energy/tariffs,url_analyser,
+domain,octopus.energy,url_analyser,
+email,newsletter@octopus.energy,ingestion,

@@ -1,0 +1,177 @@
+{
+  "message_id": "<20250414101528.0ABCD1234@hmrc-tax-refund.xyz>",
+  "received_at": "2026-04-25T02:58:06.480946Z",
+  "verdict": "phishing",
+  "severity": "critical",
+  "score": 1.0,
+  "sla_minutes": 15,
+  "findings": [
+    {
+      "detector": "header_forensics",
+      "rule": "spf_fail",
+      "weight": 0.2,
+      "detail": "SPF check failed (sender not authorised by domain).",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "dkim_missing",
+      "weight": 0.08,
+      "detail": "DKIM signature missing or unaligned.",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "dmarc_fail",
+      "weight": 0.2,
+      "detail": "DMARC policy evaluation failed (SPF & DKIM alignment).",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "reply_to_mismatch",
+      "weight": 0.15,
+      "detail": "Reply-To (secure-refund-portal.top) differs from From (hmrc-tax-refund.xyz).",
+      "evidence": {
+        "from_domain": "hmrc-tax-refund.xyz",
+        "reply_to_domain": "secure-refund-portal.top"
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "display_name_spoof",
+      "weight": 0.35,
+      "detail": "From-name impersonates HM Revenue & Customs (alias hit) but From-domain 'hmrc-tax-refund.xyz' is not in the brand's legitimate sending domains.",
+      "evidence": {
+        "brand": "hmrc",
+        "from_domain": "hmrc-tax-refund.xyz",
+        "aliases_matched": [
+          "hm revenue & customs"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "uk_lure_match",
+      "weight": 0.35,
+      "detail": "Body/subject contains 2 HM Revenue & Customs lure keywords: ['tax refund', 'claim your refund'].",
+      "evidence": {
+        "brand": "hmrc",
+        "keywords_hit": [
+          "tax refund",
+          "claim your refund"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "suspicious_phrase",
+      "weight": 0.15000000000000002,
+      "detail": "3 suspicious phrase(s) detected.",
+      "evidence": {
+        "phrases": [
+          "dear customer",
+          "failure to do so",
+          "kindly"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "urgency_language",
+      "weight": 0.1,
+      "detail": "Urgency language present: ['within 24 hours'].",
+      "evidence": {
+        "terms": [
+          "within 24 hours"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "credential_form",
+      "weight": 0.25,
+      "detail": "Message requests credentials or contains a credential form.",
+      "evidence": {
+        "terms": [
+          "confirm your identity"
+        ]
+      }
+    },
+    {
+      "detector": "url_analyser",
+      "rule": "high_risk_tld",
+      "weight": 0.1,
+      "detail": "URL uses high-risk TLD .xyz.",
+      "evidence": {
+        "url": "https://hmrc-tax-refund.xyz/claim?id=7821",
+        "tld": "xyz"
+      }
+    },
+    {
+      "detector": "nlp_classifier",
+      "rule": "ml_phishing_probability",
+      "weight": 0.5,
+      "detail": "ML classifier rates this message as phishing with probability 0.87.",
+      "evidence": {
+        "probability": 0.8688361472806223,
+        "top_tokens": [
+          "tax",
+          "to",
+          "you",
+          "refund",
+          "hours",
+          "customs"
+        ]
+      }
+    },
+    {
+      "detector": "bec",
+      "rule": "sender_first_seen",
+      "weight": 0.15,
+      "detail": "Sender 'noreply@hmrc-tax-refund.xyz' is unknown to this organisation.",
+      "evidence": null
+    }
+  ],
+  "auth": {
+    "spf": "fail",
+    "dkim": "none",
+    "dmarc": "fail",
+    "arc": "none",
+    "notes": []
+  },
+  "iocs": [
+    {
+      "type": "url",
+      "value": "https://hmrc-tax-refund.xyz/claim?id=7821",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:06.448470",
+      "tags": []
+    },
+    {
+      "type": "domain",
+      "value": "hmrc-tax-refund.xyz",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:06.448478",
+      "tags": []
+    },
+    {
+      "type": "email",
+      "value": "noreply@hmrc-tax-refund.xyz",
+      "source_detector": "ingestion",
+      "first_seen": "2026-04-25T02:58:06.480891",
+      "tags": []
+    }
+  ],
+  "brand_impersonated": "HM Revenue & Customs",
+  "mitre_techniques": [
+    "T1566.002",
+    "T1656",
+    "T1534"
+  ],
+  "summary": "Verdict phishing with score 1.00 (brand impersonated: HM Revenue & Customs). Top signals: ml_phishing_probability, display_name_spoof, uk_lure_match. From: noreply@hmrc-tax-refund.xyz, Subject: You have a pending tax refund of \ufffd\ufffd326.41 \ufffd\ufffd\ufffd action required within 24 hours.",
+  "quarantined": false,
+  "ticket_id": null,
+  "detected_at": "2026-04-25T02:58:06.480955Z",
+  "responded_at": null
+}

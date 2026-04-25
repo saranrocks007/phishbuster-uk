@@ -1,0 +1,90 @@
+{
+    "type": "bundle",
+    "id": "bundle--8efde36c-d200-4177-9b75-5847873f703f",
+    "objects": [
+        {
+            "type": "identity",
+            "spec_version": "2.1",
+            "id": "identity--b17d51e1-1dad-401f-851e-56406af3ed5b",
+            "created": "2026-04-25T02:58:30.973739Z",
+            "modified": "2026-04-25T02:58:30.973739Z",
+            "name": "PhishBuster UK",
+            "identity_class": "system"
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--0eec10e1-b6fd-4603-98b8-79a97c0abb8c",
+            "created_by_ref": "identity--b17d51e1-1dad-401f-851e-56406af3ed5b",
+            "created": "2026-04-25T02:58:30.974088Z",
+            "modified": "2026-04-25T02:58:30.974088Z",
+            "pattern": "[url:value = 'https://roy\u0430l-mail-redeliver.click/reschedule?id=R8K2']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:30.974073Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--6df2f6d9-4649-4eec-b40d-b62a0ee482c3",
+            "created_by_ref": "identity--b17d51e1-1dad-401f-851e-56406af3ed5b",
+            "created": "2026-04-25T02:58:30.981004Z",
+            "modified": "2026-04-25T02:58:30.981004Z",
+            "pattern": "[domain-name:value = 'roy\u0430l-mail-redeliver.click']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:30.980993Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--6542995c-31f5-46db-903b-ae3358b48ab3",
+            "created_by_ref": "identity--b17d51e1-1dad-401f-851e-56406af3ed5b",
+            "created": "2026-04-25T02:58:30.982627Z",
+            "modified": "2026-04-25T02:58:30.982627Z",
+            "pattern": "[url:value = 'https://bit.ly/3xyzfake']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:30.982618Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--cddfec27-c64a-4fa9-90c9-1a56f445fc9f",
+            "created_by_ref": "identity--b17d51e1-1dad-401f-851e-56406af3ed5b",
+            "created": "2026-04-25T02:58:30.983369Z",
+            "modified": "2026-04-25T02:58:30.983369Z",
+            "pattern": "[domain-name:value = 'bit.ly']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:30.983364Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--1480b2ea-18c1-4e9b-81ea-fbb104a5ac9a",
+            "created_by_ref": "identity--b17d51e1-1dad-401f-851e-56406af3ed5b",
+            "created": "2026-04-25T02:58:30.983936Z",
+            "modified": "2026-04-25T02:58:30.983936Z",
+            "pattern": "[email-addr:value = 'delivery@roy\ufffd\ufffdl-mail-redeliver.click']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:30.983931Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        }
+    ]
+}

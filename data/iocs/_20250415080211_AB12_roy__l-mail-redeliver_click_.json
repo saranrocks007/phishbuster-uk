@@ -1,0 +1,199 @@
+{
+  "message_id": "<20250415080211.AB12@roy\ufffd\ufffdl-mail-redeliver.click>",
+  "received_at": "2026-04-25T02:58:30.522778Z",
+  "verdict": "phishing",
+  "severity": "critical",
+  "score": 1.0,
+  "sla_minutes": 15,
+  "findings": [
+    {
+      "detector": "header_forensics",
+      "rule": "spf_softfail",
+      "weight": 0.1,
+      "detail": "SPF softfail (domain discourages sending from this IP).",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "dkim_missing",
+      "weight": 0.08,
+      "detail": "DKIM signature missing or unaligned.",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "dmarc_missing",
+      "weight": 0.08,
+      "detail": "No DMARC policy published for the From domain.",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "reply_to_mismatch",
+      "weight": 0.15,
+      "detail": "Reply-To (parcel-redeliver-uk.top) differs from From (roy\ufffd\ufffdl-mail-redeliver.click).",
+      "evidence": {
+        "from_domain": "roy\ufffd\ufffdl-mail-redeliver.click",
+        "reply_to_domain": "parcel-redeliver-uk.top"
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "display_name_spoof",
+      "weight": 0.35,
+      "detail": "From-name impersonates Royal Mail (alias hit) but From-domain 'roy\ufffd\ufffdl-mail-redeliver.click' is not in the brand's legitimate sending domains.",
+      "evidence": {
+        "brand": "royal_mail",
+        "from_domain": "roy\ufffd\ufffdl-mail-redeliver.click",
+        "aliases_matched": [
+          "royal mail"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "uk_lure_match",
+      "weight": 0.35,
+      "detail": "Body/subject contains 2 Royal Mail lure keywords: ['redelivery', 'shipping fee'].",
+      "evidence": {
+        "brand": "royal_mail",
+        "keywords_hit": [
+          "redelivery",
+          "shipping fee"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "uk_lure_match",
+      "weight": 0.3,
+      "detail": "Body/subject contains 2 Evri (Hermes) lure keywords: ['parcel', 'delivery'].",
+      "evidence": {
+        "brand": "evri",
+        "keywords_hit": [
+          "parcel",
+          "delivery"
+        ]
+      }
+    },
+    {
+      "detector": "url_analyser",
+      "rule": "high_risk_tld",
+      "weight": 0.1,
+      "detail": "URL uses high-risk TLD .click.",
+      "evidence": {
+        "url": "https://roy\u0430l-mail-redeliver.click/reschedule?id=R8K2",
+        "tld": "click"
+      }
+    },
+    {
+      "detector": "url_analyser",
+      "rule": "homoglyph_domain",
+      "weight": 0.3,
+      "detail": "Host contains confusable characters: roy\u0430l-mail-redeliver.click (folds to royal-mail-redeliver.click).",
+      "evidence": {
+        "url": "https://roy\u0430l-mail-redeliver.click/reschedule?id=R8K2",
+        "original": "roy\u0430l-mail-redeliver.click",
+        "folded": "royal-mail-redeliver.click"
+      }
+    },
+    {
+      "detector": "url_analyser",
+      "rule": "url_shortener",
+      "weight": 0.1,
+      "detail": "URL uses a shortener (bit.ly).",
+      "evidence": {
+        "url": "https://bit.ly/3xyzfake"
+      }
+    },
+    {
+      "detector": "url_analyser",
+      "rule": "mismatched_url_text",
+      "weight": 0.2,
+      "detail": "Anchor text 'royalmail.com' does not match href host 'roy\u0430l-mail-redeliver.click'.",
+      "evidence": {
+        "text_host": "royalmail.com",
+        "href_host": "roy\u0430l-mail-redeliver.click"
+      }
+    },
+    {
+      "detector": "nlp_classifier",
+      "rule": "ml_phishing_probability",
+      "weight": 0.5,
+      "detail": "ML classifier rates this message as phishing with probability 0.84.",
+      "evidence": {
+        "probability": 0.8422560055626191,
+        "top_tokens": [
+          "parcel",
+          "mail",
+          "royal",
+          "royal mail",
+          "redelivery",
+          "fee"
+        ]
+      }
+    },
+    {
+      "detector": "bec",
+      "rule": "sender_first_seen",
+      "weight": 0.15,
+      "detail": "Sender 'delivery@roy\ufffd\ufffdl-mail-redeliver.click' is unknown to this organisation.",
+      "evidence": null
+    }
+  ],
+  "auth": {
+    "spf": "softfail",
+    "dkim": "none",
+    "dmarc": "none",
+    "arc": "none",
+    "notes": []
+  },
+  "iocs": [
+    {
+      "type": "url",
+      "value": "https://roy\u0430l-mail-redeliver.click/reschedule?id=R8K2",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:30.502300",
+      "tags": []
+    },
+    {
+      "type": "domain",
+      "value": "roy\u0430l-mail-redeliver.click",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:30.502311",
+      "tags": []
+    },
+    {
+      "type": "url",
+      "value": "https://bit.ly/3xyzfake",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:30.505622",
+      "tags": []
+    },
+    {
+      "type": "domain",
+      "value": "bit.ly",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:30.505629",
+      "tags": []
+    },
+    {
+      "type": "email",
+      "value": "delivery@roy\ufffd\ufffdl-mail-redeliver.click",
+      "source_detector": "ingestion",
+      "first_seen": "2026-04-25T02:58:30.522725",
+      "tags": []
+    }
+  ],
+  "brand_impersonated": "Royal Mail",
+  "mitre_techniques": [
+    "T1566.002",
+    "T1656",
+    "T1534"
+  ],
+  "summary": "Verdict phishing with score 1.00 (brand impersonated: Royal Mail). Top signals: ml_phishing_probability, display_name_spoof, uk_lure_match. From: delivery@roy\ufffd\ufffdl-mail-redeliver.click, Subject: Your parcel is awaiting redelivery \ufffd\ufffd\ufffd small shipping fee of \ufffd\ufffd1.99.",
+  "quarantined": false,
+  "ticket_id": null,
+  "detected_at": "2026-04-25T02:58:30.522788Z",
+  "responded_at": null
+}

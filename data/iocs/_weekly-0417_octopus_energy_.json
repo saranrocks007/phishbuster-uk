@@ -1,0 +1,71 @@
+{
+  "message_id": "<weekly-0417@octopus.energy>",
+  "received_at": "2026-04-25T02:58:14.583774Z",
+  "verdict": "benign",
+  "severity": "informational",
+  "score": 0.15,
+  "sla_minutes": 1440,
+  "findings": [
+    {
+      "detector": "bec",
+      "rule": "sender_first_seen",
+      "weight": 0.15,
+      "detail": "Sender 'newsletter@octopus.energy' is unknown to this organisation.",
+      "evidence": null
+    }
+  ],
+  "auth": {
+    "spf": "pass",
+    "dkim": "pass",
+    "dmarc": "pass",
+    "arc": "none",
+    "notes": []
+  },
+  "iocs": [
+    {
+      "type": "url",
+      "value": "https://octopus.energy/dashboard",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:14.550735",
+      "tags": []
+    },
+    {
+      "type": "domain",
+      "value": "octopus.energy",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:14.550746",
+      "tags": []
+    },
+    {
+      "type": "url",
+      "value": "https://octopus.energy/tariffs",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:14.550871",
+      "tags": []
+    },
+    {
+      "type": "domain",
+      "value": "octopus.energy",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:14.550876",
+      "tags": []
+    },
+    {
+      "type": "email",
+      "value": "newsletter@octopus.energy",
+      "source_detector": "ingestion",
+      "first_seen": "2026-04-25T02:58:14.583723",
+      "tags": []
+    }
+  ],
+  "brand_impersonated": null,
+  "mitre_techniques": [
+    "T1566.002",
+    "T1534"
+  ],
+  "summary": "Verdict benign with score 0.15. Top signals: sender_first_seen. From: newsletter@octopus.energy, Subject: Your monthly energy summary is ready.",
+  "quarantined": false,
+  "ticket_id": null,
+  "detected_at": "2026-04-25T02:58:14.583783Z",
+  "responded_at": null
+}

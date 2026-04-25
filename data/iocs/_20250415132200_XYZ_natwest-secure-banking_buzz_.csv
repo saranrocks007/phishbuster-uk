@@ -1,0 +1,4 @@
+type,value,detector,tags
+url,https://natwest-secure-banking.buzz/verify?ref=0X7L,url_analyser,
+domain,natwest-secure-banking.buzz,url_analyser,
+email,alerts@natwest-secure-banking.buzz,ingestion,

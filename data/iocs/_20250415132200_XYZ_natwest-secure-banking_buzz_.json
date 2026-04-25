@@ -1,0 +1,185 @@
+{
+  "message_id": "<20250415132200.XYZ@natwest-secure-banking.buzz>",
+  "received_at": "2026-04-25T02:58:22.457036Z",
+  "verdict": "phishing",
+  "severity": "critical",
+  "score": 1.0,
+  "sla_minutes": 15,
+  "findings": [
+    {
+      "detector": "header_forensics",
+      "rule": "spf_fail",
+      "weight": 0.2,
+      "detail": "SPF check failed (sender not authorised by domain).",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "dkim_fail",
+      "weight": 0.2,
+      "detail": "DKIM signature did not verify.",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "dmarc_fail",
+      "weight": 0.2,
+      "detail": "DMARC policy evaluation failed (SPF & DKIM alignment).",
+      "evidence": null
+    },
+    {
+      "detector": "header_forensics",
+      "rule": "reply_to_mismatch",
+      "weight": 0.15,
+      "detail": "Reply-To (nw-banking-support.top) differs from From (natwest-secure-banking.buzz).",
+      "evidence": {
+        "from_domain": "natwest-secure-banking.buzz",
+        "reply_to_domain": "nw-banking-support.top"
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "display_name_spoof",
+      "weight": 0.375,
+      "detail": "From-name impersonates NatWest (alias hit) but From-domain 'natwest-secure-banking.buzz' is not in the brand's legitimate sending domains.",
+      "evidence": {
+        "brand": "natwest",
+        "from_domain": "natwest-secure-banking.buzz",
+        "aliases_matched": [
+          "natwest",
+          "natwest alerts"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "uk_lure_match",
+      "weight": 0.375,
+      "detail": "Body/subject contains 2 NatWest lure keywords: ['new payee', 'verify your account'].",
+      "evidence": {
+        "brand": "natwest",
+        "keywords_hit": [
+          "new payee",
+          "verify your account"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "suspicious_phrase",
+      "weight": 0.1,
+      "detail": "2 suspicious phrase(s) detected.",
+      "evidence": {
+        "phrases": [
+          "dear customer",
+          "kindly"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "urgency_language",
+      "weight": 0.1,
+      "detail": "Urgency language present: ['urgent', 'within 24 hours'].",
+      "evidence": {
+        "terms": [
+          "urgent",
+          "within 24 hours"
+        ]
+      }
+    },
+    {
+      "detector": "uk_lure",
+      "rule": "credential_form",
+      "weight": 0.25,
+      "detail": "Message requests credentials or contains a credential form.",
+      "evidence": {
+        "terms": [
+          "verify your identity"
+        ]
+      }
+    },
+    {
+      "detector": "url_analyser",
+      "rule": "high_risk_tld",
+      "weight": 0.1,
+      "detail": "URL uses high-risk TLD .buzz.",
+      "evidence": {
+        "url": "https://natwest-secure-banking.buzz/verify?ref=0X7L",
+        "tld": "buzz"
+      }
+    },
+    {
+      "detector": "nlp_classifier",
+      "rule": "ml_phishing_probability",
+      "weight": 0.5,
+      "detail": "ML classifier rates this message as phishing with probability 0.92.",
+      "evidence": {
+        "probability": 0.9177190694709069,
+        "top_tokens": [
+          "account",
+          "to",
+          "you",
+          "verify",
+          "hours",
+          "your account"
+        ]
+      }
+    },
+    {
+      "detector": "bec",
+      "rule": "bec_finance_keywords",
+      "weight": 0.2,
+      "detail": "Finance/payment keywords from never-before-seen sender.",
+      "evidence": null
+    },
+    {
+      "detector": "bec",
+      "rule": "sender_first_seen",
+      "weight": 0.15,
+      "detail": "Sender 'alerts@natwest-secure-banking.buzz' is unknown to this organisation.",
+      "evidence": null
+    }
+  ],
+  "auth": {
+    "spf": "fail",
+    "dkim": "fail",
+    "dmarc": "fail",
+    "arc": "none",
+    "notes": []
+  },
+  "iocs": [
+    {
+      "type": "url",
+      "value": "https://natwest-secure-banking.buzz/verify?ref=0X7L",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:22.437975",
+      "tags": []
+    },
+    {
+      "type": "domain",
+      "value": "natwest-secure-banking.buzz",
+      "source_detector": "url_analyser",
+      "first_seen": "2026-04-25T02:58:22.437987",
+      "tags": []
+    },
+    {
+      "type": "email",
+      "value": "alerts@natwest-secure-banking.buzz",
+      "source_detector": "ingestion",
+      "first_seen": "2026-04-25T02:58:22.456984",
+      "tags": []
+    }
+  ],
+  "brand_impersonated": "NatWest",
+  "mitre_techniques": [
+    "T1566.002",
+    "T1656",
+    "T1534"
+  ],
+  "summary": "Verdict phishing with score 1.00 (brand impersonated: NatWest). Top signals: ml_phishing_probability, display_name_spoof, uk_lure_match. From: alerts@natwest-secure-banking.buzz, Subject: URGENT: New payee added to your account \ufffd\ufffd\ufffd verify within 24 hours.",
+  "quarantined": false,
+  "ticket_id": null,
+  "detected_at": "2026-04-25T02:58:22.457044Z",
+  "responded_at": null
+}

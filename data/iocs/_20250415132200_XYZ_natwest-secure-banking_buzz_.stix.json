@@ -1,0 +1,60 @@
+{
+    "type": "bundle",
+    "id": "bundle--ee417cdb-4b59-425b-bcf7-8724be33be08",
+    "objects": [
+        {
+            "type": "identity",
+            "spec_version": "2.1",
+            "id": "identity--560309d6-71b6-4460-827f-2e8274a68371",
+            "created": "2026-04-25T02:58:22.882525Z",
+            "modified": "2026-04-25T02:58:22.882525Z",
+            "name": "PhishBuster UK",
+            "identity_class": "system"
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--fa72612c-f8ae-4e84-bcbc-b6aded969907",
+            "created_by_ref": "identity--560309d6-71b6-4460-827f-2e8274a68371",
+            "created": "2026-04-25T02:58:22.882862Z",
+            "modified": "2026-04-25T02:58:22.882862Z",
+            "pattern": "[url:value = 'https://natwest-secure-banking.buzz/verify?ref=0X7L']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:22.882852Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--f61a96b2-34d6-446f-a268-58cb4218486a",
+            "created_by_ref": "identity--560309d6-71b6-4460-827f-2e8274a68371",
+            "created": "2026-04-25T02:58:22.890074Z",
+            "modified": "2026-04-25T02:58:22.890074Z",
+            "pattern": "[domain-name:value = 'natwest-secure-banking.buzz']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:22.890062Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--6e614b21-c424-4f93-b7e2-9b2e441b28fb",
+            "created_by_ref": "identity--560309d6-71b6-4460-827f-2e8274a68371",
+            "created": "2026-04-25T02:58:22.891326Z",
+            "modified": "2026-04-25T02:58:22.891326Z",
+            "pattern": "[email-addr:value = 'alerts@natwest-secure-banking.buzz']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:22.891319Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        }
+    ]
+}

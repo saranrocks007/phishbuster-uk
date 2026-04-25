@@ -1,0 +1,90 @@
+{
+    "type": "bundle",
+    "id": "bundle--16dde057-669e-4aee-84ac-1e27070e1fd5",
+    "objects": [
+        {
+            "type": "identity",
+            "spec_version": "2.1",
+            "id": "identity--4fd24797-b415-40a0-88d0-dce04fb1de87",
+            "created": "2026-04-25T02:58:15.006206Z",
+            "modified": "2026-04-25T02:58:15.006206Z",
+            "name": "PhishBuster UK",
+            "identity_class": "system"
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--d588d358-ab66-4abb-b3c8-7bc4bdba689d",
+            "created_by_ref": "identity--4fd24797-b415-40a0-88d0-dce04fb1de87",
+            "created": "2026-04-25T02:58:15.006543Z",
+            "modified": "2026-04-25T02:58:15.006543Z",
+            "pattern": "[url:value = 'https://octopus.energy/dashboard']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:15.006532Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--19e34202-d90c-4fd9-989b-01002a654c25",
+            "created_by_ref": "identity--4fd24797-b415-40a0-88d0-dce04fb1de87",
+            "created": "2026-04-25T02:58:15.012797Z",
+            "modified": "2026-04-25T02:58:15.012797Z",
+            "pattern": "[domain-name:value = 'octopus.energy']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:15.012786Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--747b220c-3f30-43bc-8d2b-0cbda441bdd5",
+            "created_by_ref": "identity--4fd24797-b415-40a0-88d0-dce04fb1de87",
+            "created": "2026-04-25T02:58:15.014119Z",
+            "modified": "2026-04-25T02:58:15.014119Z",
+            "pattern": "[url:value = 'https://octopus.energy/tariffs']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:15.014111Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--2b4b5419-4936-46e3-9fce-b9025b91ebcd",
+            "created_by_ref": "identity--4fd24797-b415-40a0-88d0-dce04fb1de87",
+            "created": "2026-04-25T02:58:15.014771Z",
+            "modified": "2026-04-25T02:58:15.014771Z",
+            "pattern": "[domain-name:value = 'octopus.energy']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:15.014766Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--300241ba-6262-447c-b5c3-26ace6dc91f6",
+            "created_by_ref": "identity--4fd24797-b415-40a0-88d0-dce04fb1de87",
+            "created": "2026-04-25T02:58:15.015281Z",
+            "modified": "2026-04-25T02:58:15.015281Z",
+            "pattern": "[email-addr:value = 'newsletter@octopus.energy']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:15.015275Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        }
+    ]
+}

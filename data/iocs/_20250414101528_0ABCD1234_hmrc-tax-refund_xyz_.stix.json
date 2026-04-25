@@ -1,0 +1,60 @@
+{
+    "type": "bundle",
+    "id": "bundle--b9475335-8aae-49bb-add6-6fd1e8b0fd6f",
+    "objects": [
+        {
+            "type": "identity",
+            "spec_version": "2.1",
+            "id": "identity--0a9b7173-2eb3-4750-a329-2fe884c0c773",
+            "created": "2026-04-25T02:58:06.93361Z",
+            "modified": "2026-04-25T02:58:06.93361Z",
+            "name": "PhishBuster UK",
+            "identity_class": "system"
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--eefd34f7-f69e-4f9b-a879-00f9a1edfe9a",
+            "created_by_ref": "identity--0a9b7173-2eb3-4750-a329-2fe884c0c773",
+            "created": "2026-04-25T02:58:06.933945Z",
+            "modified": "2026-04-25T02:58:06.933945Z",
+            "pattern": "[url:value = 'https://hmrc-tax-refund.xyz/claim?id=7821']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:06.933934Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--7e2f7786-2adf-41ae-b1fc-b36f72535bee",
+            "created_by_ref": "identity--0a9b7173-2eb3-4750-a329-2fe884c0c773",
+            "created": "2026-04-25T02:58:06.940834Z",
+            "modified": "2026-04-25T02:58:06.940834Z",
+            "pattern": "[domain-name:value = 'hmrc-tax-refund.xyz']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:06.940822Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        },
+        {
+            "type": "indicator",
+            "spec_version": "2.1",
+            "id": "indicator--094b2999-993e-4c8d-ad0d-02a2770893f7",
+            "created_by_ref": "identity--0a9b7173-2eb3-4750-a329-2fe884c0c773",
+            "created": "2026-04-25T02:58:06.942283Z",
+            "modified": "2026-04-25T02:58:06.942283Z",
+            "pattern": "[email-addr:value = 'noreply@hmrc-tax-refund.xyz']",
+            "pattern_type": "stix",
+            "pattern_version": "2.1",
+            "valid_from": "2026-04-25T02:58:06.942274Z",
+            "labels": [
+                "malicious-activity"
+            ]
+        }
+    ]
+}
