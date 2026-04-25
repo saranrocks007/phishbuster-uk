@@ -1,0 +1,30 @@
+Return-Path: <newsletter@octopus.energy>
+Received: from mta-out.octopus.energy (mta-out.octopus.energy [185.58.86.21])
+	by mx1.corp.co.uk with ESMTPS
+	for <user@corp.co.uk>; Wed, 16 Apr 2025 08:00:05 +0100
+Authentication-Results: mx1.corp.co.uk;
+	spf=pass smtp.mailfrom=octopus.energy;
+	dkim=pass header.d=octopus.energy;
+	dmarc=pass action=none header.from=octopus.energy;
+Message-ID: <weekly-0417@octopus.energy>
+Date: Wed, 16 Apr 2025 08:00:05 +0100
+From: "Octopus Energy" <newsletter@octopus.energy>
+To: user@corp.co.uk
+Subject: Your monthly energy summary is ready
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+Hi there,
+
+Your monthly energy usage summary for April is now available in your
+Octopus dashboard. You used 248 kWh of electricity and 312 kWh of gas
+this month.
+
+You can review the breakdown and download a PDF copy any time at
+https://octopus.energy/dashboard
+
+If you'd like to switch tariff, browse our current options here:
+https://octopus.energy/tariffs
+
+All the best,
+The Octopus team

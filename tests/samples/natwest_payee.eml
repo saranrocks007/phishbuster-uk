@@ -1,0 +1,32 @@
+Return-Path: <alerts@natwest-secure-banking.buzz>
+Received: from natwest-secure-banking.buzz (unknown [91.203.14.77])
+	by mx1.corp.co.uk with ESMTP
+	for <user@corp.co.uk>; Tue, 15 Apr 2025 14:22:00 +0100
+Authentication-Results: mx1.corp.co.uk;
+	spf=fail smtp.mailfrom=natwest-secure-banking.buzz;
+	dkim=fail;
+	dmarc=fail;
+Message-ID: <20250415132200.XYZ@natwest-secure-banking.buzz>
+Date: Tue, 15 Apr 2025 14:22:00 +0100
+From: "NatWest Alerts" <alerts@natwest-secure-banking.buzz>
+Reply-To: <security@nw-banking-support.top>
+To: user@corp.co.uk
+Subject: URGENT: New payee added to your account — verify within 24 hours
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+
+Dear Customer,
+
+A new payee has been added to your NatWest account. If this was not
+authorised by you, you must verify your identity immediately to avoid
+unauthorised transactions.
+
+Verify your account now: https://natwest-secure-banking.buzz/verify?ref=0X7L
+
+Kindly note that failure to verify within 24 hours will result in
+your account being temporarily suspended.
+
+If you did add this payee, please disregard this message.
+
+Regards,
+NatWest Security Team

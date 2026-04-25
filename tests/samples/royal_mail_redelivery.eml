@@ -1,0 +1,30 @@
+Return-Path: <delivery@royаl-mail-redeliver.click>
+Received: from royаl-mail-redeliver.click (unknown [194.58.112.33])
+	by mx1.corp.co.uk with ESMTP
+	for <user@corp.co.uk>; Tue, 15 Apr 2025 09:02:11 +0100
+Authentication-Results: mx1.corp.co.uk;
+	spf=softfail smtp.mailfrom=royаl-mail-redeliver.click;
+	dkim=none;
+	dmarc=none;
+Message-ID: <20250415080211.AB12@royаl-mail-redeliver.click>
+Date: Tue, 15 Apr 2025 09:02:11 +0100
+From: "Royal Mail" <delivery@royаl-mail-redeliver.click>
+Reply-To: <help@parcel-redeliver-uk.top>
+To: user@corp.co.uk
+Subject: Your parcel is awaiting redelivery — small shipping fee of £1.99
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+
+<html><body>
+<p>Dear customer,</p>
+<p>We were unable to deliver your parcel on our last attempt. To schedule
+a redelivery, a small shipping fee of <strong>&pound;1.99</strong> is required
+to cover the return of the item to your address.</p>
+<p>Please confirm redelivery via the Royal Mail portal:
+<a href="https://royаl-mail-redeliver.click/reschedule?id=R8K2">
+royalmail.com/redelivery</a></p>
+<p>Failure to pay this fee within 48 hours will result in your parcel being
+returned to the sender.</p>
+<p>Track your parcel: <a href="https://bit.ly/3xyzfake">bit.ly/3xyzfake</a></p>
+<p>Thank you,<br>Royal Mail Delivery Team</p>
+</body></html>
