@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libzbar0 libxml2-dev libxslt-dev poppler-utils
+
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Train baseline classifier
+        run: python scripts/train_model.py
+
+      - name: Run tests
+        env:
+          DATABASE_URL: "sqlite:///:memory:"
+          ENABLE_AUTO_QUARANTINE: "false"
+          ENABLE_TICKETING: "false"
+          ENABLE_NCSC_SERS_FORWARDING: "false"
+          ENABLE_DOMAIN_AGE_CHECK: "false"
+          ENABLE_THREAT_INTEL: "false"
+          ENABLE_URL_SANDBOX: "false"
+        run: pytest tests/ -v --tb=short
+
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install ruff==0.6.9
+      - run: ruff check src/ scripts/ tests/ --select E,F,W,I --ignore E501
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: phishbuster-uk:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Smoke test image
+        run: |
+          docker run --rm -e ENABLE_DOMAIN_AGE_CHECK=false phishbuster-uk:ci \
+            python -c "from src.analysis import AnalysisEngine; AnalysisEngine(); print('OK')"
